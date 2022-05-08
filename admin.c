@@ -150,6 +150,25 @@ void GetCash(long long int currentID)
     printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
 }
 
+
+void DepositInAccount(long long int currentID)
+{
+    node *CurrentUser = GetUser(currentID);
+    double amount;
+    printf("\nPlease enter amount to get: ");
+    scanf("%lf", &amount);
+    fflush(stdin);
+
+    printf("Before");
+    printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
+    
+    CurrentUser->value.Balance += amount;
+
+    printf("\nAfter");
+    printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
+}
+
+
 void OpenAccount(void)
 {
     long long int AccountID;
@@ -178,6 +197,9 @@ void OpenAccount(void)
         case 3:
             GetCash(AccountID);
             break;
+		case 4:
+			DepositInAccount(AccountID);
+			break;
         case 5:
             return;
             break;
