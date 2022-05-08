@@ -73,6 +73,7 @@ void MakeTransaction(long long int currentID)
 
     if (User)
     {
+
         printf("Before");
         printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
         printf("\nUser Balance: %lf", User->value.Balance);
@@ -96,6 +97,37 @@ void MakeTransaction(long long int currentID)
     }
 }
 
+void ChangeAccountStatus(long long int currentID)
+{
+    node *CurrentUser = GetUser(currentID);
+    int input;
+    printf("\nChoice Status\n");
+    printf("1: Set Account to Active State\n");
+    printf("2: Set Account to Restricted State\n");
+    printf("3: Set Account to Closed\n");
+    printf("Your Choice: ");
+    scanf("%d", &input);
+    fflush(stdin);
+    printf("Current Account Status: %s", CurrentUser->value.Status);
+    switch (input)
+    {
+    case 1:
+        CurrentUser->value.Status = "Active";
+        break;
+    case 2:
+        CurrentUser->value.Status = "Restricted";
+        break;
+    case 3:
+        CurrentUser->value.Status = "Closed";
+        break;
+    default:
+        printf("Invalid Choice\n");
+        break;
+    }
+    printf("Current Account Status: %s", CurrentUser->value.Status);
+    printf("\nStatus changed successfully");
+}
+
 void OpenAccount(void)
 {
     long long int AccountID;
@@ -117,6 +149,9 @@ void OpenAccount(void)
         {
         case 1:
             MakeTransaction(AccountID);
+            break;
+        case 2:
+            ChangeAccountStatus(AccountID);
             break;
         case 5:
             return;
