@@ -1,5 +1,6 @@
 #ifndef _LINKED_LIST_H
 #define _LINKED_LIST_H
+#include <stdbool.h>
 
 typedef struct client
 {
@@ -22,6 +23,8 @@ struct Node_type
 };
 
 void AddNewUser(client val);
+bool SearchForUser(long long int x);
+node *GetUser(long long int val);
 void PrintLinkedList(void);
 
 #endif

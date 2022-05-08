@@ -1,6 +1,7 @@
 #include "LinkedList.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 extern node head;
 int ListLength = 0;
@@ -42,6 +43,31 @@ void AddNewUser(client val)
     ListLength++;
     return;
 }
+
+bool SearchForUser(long long int x)
+{
+    node *current = &head; // Initialize current
+    while (current != NULL)
+    {
+        if (current->value.BankAccountID == x)
+            return true;
+        current = current->Next;
+    }
+    return false;
+}
+
+node *GetUser(long long int val)
+{
+    node *current = &head; // Initialize current
+    while (current != NULL)
+    {
+        if (current->value.BankAccountID == val)
+            return current;
+        current = current->Next;
+    }
+    return NULL;
+}
+
 void PrintLinkedList(void)
 {
     printf("\n\n----------------------\n");
