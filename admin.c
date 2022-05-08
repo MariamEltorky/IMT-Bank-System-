@@ -73,36 +73,30 @@ void MakeTransaction(long long int currentID)
 
     if (User)
     {
-        if (CurrentUser->value.Status == "Active" && User->value.Status == "Active")
-        {
-            printf("Before");
-            printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
-            printf("\nUser Balance: %lf", User->value.Balance);
 
-            double amount;
-            printf("\nPlease enter amount to transfer: ");
-            scanf("%lf", &amount);
-            fflush(stdin);
-            if (CurrentUser->value.Balance >= amount)
-            {
-                User->value.Balance += amount;
-                CurrentUser->value.Balance -= amount;
-            }
-            else
-            {
-                printf("The amount you enter exceeds your balance\n");
-            }
-            printf("\nAfter");
-            printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
-            printf("\nUser Balance: %lf", User->value.Balance);
+        printf("Before");
+        printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
+        printf("\nUser Balance: %lf", User->value.Balance);
+
+        double amount;
+        printf("\nPlease enter amount to transfer: ");
+        scanf("%lf", &amount);
+        fflush(stdin);
+        if (CurrentUser->value.Balance >= amount)
+        {
+            User->value.Balance += amount;
+            CurrentUser->value.Balance -= amount;
         }
         else
         {
-            printf("Please Check Status of Accounts");
-            return;
+            printf("The amount you enter exceeds your balance\n");
         }
+        printf("\nAfter");
+        printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
+        printf("\nUser Balance: %lf", User->value.Balance);
     }
 }
+
 void ChangeAccountStatus(long long int currentID)
 {
     node *CurrentUser = GetUser(currentID);
@@ -134,6 +128,28 @@ void ChangeAccountStatus(long long int currentID)
     printf("\nStatus changed successfully");
 }
 
+void GetCash(long long int currentID)
+{
+    node *CurrentUser = GetUser(currentID);
+    double amount;
+    printf("\nPlease enter amount to get: ");
+    scanf("%lf", &amount);
+    fflush(stdin);
+
+    printf("Before");
+    printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
+    if (CurrentUser->value.Balance >= amount)
+    {
+        CurrentUser->value.Balance -= amount;
+    }
+    else
+    {
+        printf("\nThe amount you enter exceeds your balance\n");
+    }
+    printf("\nAfter");
+    printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
+}
+
 void OpenAccount(void)
 {
     long long int AccountID;
@@ -158,6 +174,9 @@ void OpenAccount(void)
             break;
         case 2:
             ChangeAccountStatus(AccountID);
+            break;
+        case 3:
+            GetCash(AccountID);
             break;
         case 5:
             return;
