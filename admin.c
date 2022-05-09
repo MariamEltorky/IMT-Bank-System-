@@ -246,6 +246,57 @@ void MainMenu(void)
     }
 }
 
+int HidePassword(void)
+{
+    int i;
+    char ch;
+    char *password;
+    for (i = 0; i < 10; i++)
+    {
+        ch = getch();
+        password[i] = ch;
+
+        if (ch != 13) // 13 is ASCII of Enter key
+            printf("*");
+        if (ch == 13)
+            break;
+    }
+    password[i] = '\0';
+    int pass = atoi(password);
+    return pass;
+}
+
+void ChangePassword(long long int currentID)
+{
+    node *CurrentUser = GetUser(currentID);
+
+    printf("Enter your old password: ");
+    int old_password = HidePassword();
+    if (CurrentUser->value.Password == old_password)
+    {
+        printf("\nEnter your new password: ");
+        int new_password = HidePassword();
+        printf("\nConfirm your new password: ");
+        int confirm_password = HidePassword();
+        if (confirm_password == new_password)
+        {
+            CurrentUser->value.Password = new_password;
+            printf("\nPassword changed successfully!\n");
+            return;
+        }
+        else
+        {
+            printf("\nYou entered wrong password");
+            return;
+        }
+    }
+    else
+    {
+        printf("You entered wrong password");
+        return;
+    }
+}
+
 void main(void)
 {
     MainMenu();
