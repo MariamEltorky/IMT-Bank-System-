@@ -3,6 +3,7 @@
 #include "LinkedList.h"
 #include <math.h>
 #include <stdbool.h>
+#include <conio.h>
 
 long long int incrementor = 1000000000;
 node head;
@@ -150,7 +151,6 @@ void GetCash(long long int currentID)
     printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
 }
 
-
 void DepositInAccount(long long int currentID)
 {
     node *CurrentUser = GetUser(currentID);
@@ -161,13 +161,12 @@ void DepositInAccount(long long int currentID)
 
     printf("Before");
     printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
-    
+
     CurrentUser->value.Balance += amount;
 
     printf("\nAfter");
     printf("\nCurrent User Balance: %lf", CurrentUser->value.Balance);
 }
-
 
 void OpenAccount(void)
 {
@@ -197,9 +196,9 @@ void OpenAccount(void)
         case 3:
             GetCash(AccountID);
             break;
-		case 4:
-			DepositInAccount(AccountID);
-			break;
+        case 4:
+            DepositInAccount(AccountID);
+            break;
         case 5:
             return;
             break;
@@ -223,7 +222,7 @@ void MainMenu(void)
     {
         printf("\n1: Create New Account\n");
         printf("2: Open Existing Account\n");
-        printf("3: Exit System\n");
+        printf("3: Log out\n");
         printf("Your Choice: ");
         scanf("%d", &input);
         fflush(stdin);
@@ -236,7 +235,7 @@ void MainMenu(void)
             OpenAccount();
             break;
         case 3:
-            printf("Thank You\nGood Bye\n");
+            printf("Thank You\nGood Bye\n\n");
             ExitFlag = 1;
             break;
         default:
@@ -244,6 +243,7 @@ void MainMenu(void)
             break;
         }
     }
+    return;
 }
 
 int HidePassword(void)
@@ -294,6 +294,45 @@ void ChangePassword(long long int currentID)
     {
         printf("You entered wrong password");
         return;
+    }
+}
+
+void UserMenu(long long int AccountID)
+{
+
+    int input;
+    int ExitFlag = 0;
+    while (ExitFlag == 0)
+    {
+        printf("\n1: Make Transaction\n");
+        printf("2: Change Account Password\n");
+        printf("3: Get Cash\n");
+        printf("4: Deposit in Account\n");
+        printf("5: Return to main Menu\n");
+        printf("Your Choice: ");
+        scanf("%d", &input);
+        fflush(stdin);
+        switch (input)
+        {
+        case 1:
+            MakeTransaction(AccountID);
+            break;
+        case 2:
+            ChangePassword(AccountID);
+            break;
+        case 3:
+            GetCash(AccountID);
+            break;
+        case 4:
+            DepositInAccount(AccountID);
+            break;
+        case 5:
+            ExitFlag = 1;
+            return;
+        default:
+            printf("Invalid Choice\n");
+            break;
+        }
     }
 }
 
