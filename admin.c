@@ -336,9 +336,69 @@ void UserMenu(long long int AccountID)
     }
 }
 
+
+void Login(void)
+{
+    int input;
+    int ID, Password, UserPassword;
+    long long int UserID;
+    int ExitFlag = 0;
+    while (ExitFlag == 0)
+    {
+        printf("1: Admin\n");
+        printf("2: User\n");
+        printf("3: Exit System");
+        printf("\nYour Choice: ");
+        scanf("%d", &input);
+        fflush(stdin);
+        switch (input)
+        {
+        case 1:
+            printf("Enter Admin ID: ");
+            scanf("%d", &ID);
+            printf("Enter Admin Password: ");
+            Password = HidePassword();
+            if (ID == 123 && Password == 123)
+            {
+                MainMenu();
+            }
+            else
+            {
+                printf("Invalid ID or Password\n");
+                Login();
+            }
+            break;
+        case 2:
+            printf("Enter User Bank Account ID: ");
+            scanf("%lld", &UserID);
+            printf("Enter your Password: ");
+            UserPassword = HidePassword();
+            node *User = GetUser(UserID);
+            if (User != NULL && User->value.Password == UserPassword)
+            {
+                UserMenu(UserID);
+            }
+            else
+            {
+                printf("Invalid ID or Password\n");
+                Login();
+            }
+            break;
+        case 3:
+            printf("Thank You\nGood Bye\n");
+            ExitFlag = 1;
+            break;
+        default:
+            printf("Invalid Choice\n");
+            break;
+        }
+    }
+}
+
+
 void main(void)
 {
-    MainMenu();
+    Login();
     system("Pause");
     return;
 }
